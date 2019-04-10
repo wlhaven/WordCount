@@ -8,7 +8,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Created by Wally Haven on 2/5/2018.
  */
 class WordCount {
-    private WordCount() {
+    public WordCount() {
     }
 
     private Map<String, Integer> getWordCount(String fileName) {
@@ -17,10 +17,10 @@ class WordCount {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), UTF_8))) {
             String line;
             while ((line = br.readLine()) != null) {
-                StringTokenizer st = new StringTokenizer(line, " ");
+                StringTokenizer st = new StringTokenizer(line);
 
                 while (st.hasMoreTokens()) {
-                    String strippedPunc = st.nextToken().toUpperCase().replaceAll("[^a-z\\sA-Z]", " ").trim();
+                    String strippedPunc = st.nextToken().toUpperCase().replaceAll("[^a-z\\sA-Z]", "").trim();
                     StringTokenizer newToken = new StringTokenizer(strippedPunc, " ");
 
                     while (newToken.hasMoreTokens()) {
