@@ -18,16 +18,11 @@ class WordCount {
             String line;
             while ((line = br.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(line);
-
                 while (st.hasMoreTokens()) {
                     String strippedPunc = st.nextToken().toUpperCase().replaceAll("[^a-z\\sA-Z]", "").trim();
                     StringTokenizer newToken = new StringTokenizer(strippedPunc, " ");
-
                     while (newToken.hasMoreTokens()) {
                         String newWord = newToken.nextToken();
-                        if (newWord.isBlank()) {
-                            continue;
-                        }
                         if (wordMap.containsKey(newWord)) {
                             wordMap.put(newWord, wordMap.get(newWord) + 1);
                         } else {
@@ -37,13 +32,10 @@ class WordCount {
                 }
             }
         } catch (FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open input file '" + fileName + "'" + "\nProgram will close.");
+            System.out.println("Unable to open input file '" + fileName + "'" + "\nProgram will close.");
             System.exit(0);
         } catch (IOException ex) {
-            System.out.println(
-                    "Error reading file '"
-                            + fileName + "'");
+            System.out.println("Error reading file '" + fileName + "'");
         }
         return wordMap;
     }
@@ -149,13 +141,11 @@ class WordCount {
             }
         } catch (FileNotFoundException ex) {
             System.out.println(
-                    "Unable to open output file '" +
-                            fileName + "'");
+                    "Unable to open output file '" + fileName + "'");
 
         } catch (IOException ex) {
             System.out.println(
-                    "Error writing file '"
-                            + fileName + "'");
+                    "Error writing file '" + fileName + "'");
         } finally {
             try {
                 if (bw != null) bw.close();
