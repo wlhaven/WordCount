@@ -8,7 +8,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Created by Wally Haven on 2/5/2018.
  */
 class WordCount {
-    public WordCount() {
+    private WordCount() {
     }
 
     private Map<String, Integer> getWordCount(String fileName) {
@@ -140,12 +140,10 @@ class WordCount {
                 System.out.print(text);
             }
         } catch (FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open output file '" + fileName + "'");
+            System.out.println("Unable to open output file '" + fileName + "'");
 
         } catch (IOException ex) {
-            System.out.println(
-                    "Error writing file '" + fileName + "'");
+            System.out.println("Error writing file '" + fileName + "'");
         } finally {
             try {
                 if (bw != null) bw.close();
