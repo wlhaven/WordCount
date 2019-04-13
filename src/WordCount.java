@@ -8,6 +8,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Created by Wally Haven on 2/5/2018.
  */
 class WordCount {
+    private static final int MAXWORD = 10;
     private WordCount() {
     }
 
@@ -80,7 +81,7 @@ class WordCount {
         }
     }
 
-    private void TopBottomFiveWords(List<Entry<String, Integer>> list, BufferedWriter bw, int location) {
+    private void displayWordRange(List<Entry<String, Integer>> list, BufferedWriter bw, int location) {
         Entry<String, Integer> entry = list.get(location);
         String text = String.format("%-20s  %s", entry.getKey(), entry.getValue());
         System.out.println(text);
@@ -91,21 +92,21 @@ class WordCount {
         }
     }
 
-    private void topFiveWords(List<Entry<String, Integer>> list, BufferedWriter bw) {
-        String text = "\nThe 5 most used words in the file are:";
+    private void topWords(List<Entry<String, Integer>> list, BufferedWriter bw) {
+        String text = "\nThe " + MAXWORD + " most used words in the file are:";
         System.out.println(text);
         try {
             bw.append("\n").append(text);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < 5; i++) {
-            TopBottomFiveWords(list, bw, i);
+        for (int i = 0; i < MAXWORD; i++) {
+            displayWordRange(list, bw, i);
         }
     }
 
-    private void bottomFiveWords(List<Entry<String, Integer>> list, BufferedWriter bw) {
-        String text = "\nThe 5 least used words in the file are:";
+    private void bottomWords(List<Entry<String, Integer>> list, BufferedWriter bw) {
+        String text = "\nThe " + MAXWORD + " least used words in the file are:";
         System.out.println(text);
         try {
             bw.append("\n").append(text);
@@ -113,13 +114,13 @@ class WordCount {
             e.printStackTrace();
         }
         int location = list.size() - 1;
-        for (int i = 0; i < 5; i++) {
-            TopBottomFiveWords(list, bw, location);
+        for (int i = 0; i < MAXWORD; i++) {
+            displayWordRange(list, bw, location);
             location--;
         }
     }
 
-    private void printData(List<Entry<String, Integer>> list) {
+    private void PrintData(List<Entry<String, Integer>> list) {
         String fileName;
         BufferedWriter bw = null;
 
@@ -130,8 +131,8 @@ class WordCount {
             bw = new BufferedWriter(new FileWriter(fileName));
             findLargestElement(list, bw);
             findSmallestElement(list, bw);
-            topFiveWords(list, bw);
-            bottomFiveWords(list, bw);
+            topWords(list, bw);
+            bottomWords(list, bw);
             bw.write("\n\nOutput after punctuation removed and list is sorted. ");
             System.out.println("\n\nOutput after punctuation removed and list is sorted. ");
             for (Map.Entry<String, Integer> entry : list) {
@@ -160,6 +161,6 @@ class WordCount {
         fileName = wordCount.getFileInfo();
         Map<String, Integer> wordMap = wordCount.getWordCount(fileName);
         List<Entry<String, Integer>> wordList = wordCount.sortByValue(wordMap);
-        wordCount.printData(wordList);
+        wordCount.PrintData(wordList);
     }
 }
