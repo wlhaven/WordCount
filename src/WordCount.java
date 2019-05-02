@@ -49,18 +49,17 @@ class WordCount {
         return list;
     }
 
-    private String getFileInfo() {
+    private String getFileInfo() throws IOException {
         String fileName;
-
-        Scanner in = new Scanner(System.in);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter the filename to read: ");
-        fileName = in.nextLine();
+        fileName = bufferedReader.readLine();
         return fileName;
     }
 
     private void findLargestElement(List<Entry<String, Integer>> list, BufferedWriter bw) {
         Entry<String, Integer> entry = list.get(0);
-        String text = String.format("\nWord used the most: %s with a word count of: %s", entry.getKey(), entry.getValue());
+        String text = String.format("Word used the most: %s with a word count of: %s", entry.getKey(), entry.getValue());
         System.out.println(text);
         try {
             bw.write(text);
@@ -72,7 +71,7 @@ class WordCount {
     private void findSmallestElement(List<Entry<String, Integer>> list, BufferedWriter bw) {
         int count = list.size() - 1;
         Entry<String, Integer> entry = list.get(count);
-        String text = String.format("\nWord used the least: %s with a word count of: %s ", entry.getKey(), entry.getValue());
+        String text = String.format("\r\nWord used the least: %s with a word count of: %s ", entry.getKey(), entry.getValue());
         System.out.println(text);
         try {
             bw.append(text);
@@ -86,17 +85,17 @@ class WordCount {
         String text = String.format("%-20s  %s", entry.getKey(), entry.getValue());
         System.out.println(text);
         try {
-            bw.append("\n").append(text);
+            bw.append("\r\n").append(text);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void topWords(List<Entry<String, Integer>> list, BufferedWriter bw) {
-        String text = "\nThe " + MAXWORD + " most used words in the file are:";
+        String text = "\r\nThe " + MAXWORD + " most used words in the file are:";
         System.out.println(text);
         try {
-            bw.append("\n").append(text);
+            bw.append("\r\n").append(text);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -106,10 +105,10 @@ class WordCount {
     }
 
     private void bottomWords(List<Entry<String, Integer>> list, BufferedWriter bw) {
-        String text = "\nThe " + MAXWORD + " least used words in the file are:";
-        System.out.println(text);
+        String text = "\r\nThe " + MAXWORD + " least used words in the file are:";
+        System.out.print(text);
         try {
-            bw.append("\n").append(text);
+            bw.append("\r\n").append(text);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -133,10 +132,10 @@ class WordCount {
             findSmallestElement(list, bw);
             topWords(list, bw);
             bottomWords(list, bw);
-            bw.write("\n\nOutput after punctuation removed and list is sorted. ");
-            System.out.println("\n\nOutput after punctuation removed and list is sorted. ");
+            bw.write("\r\n\r\nOutput after punctuation removed and list is sorted. ");
+            System.out.print("\nOutput after punctuation removed and list is sorted. ");
             for (Map.Entry<String, Integer> entry : list) {
-                String text = String.format("\n%-20s  %s", entry.getKey(), entry.getValue());
+                String text = String.format("\r\n%-20s  %s", entry.getKey(), entry.getValue());
                 bw.append(text);
                 System.out.print(text);
             }
@@ -154,7 +153,7 @@ class WordCount {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String fileName;
 
         WordCount wordCount = new WordCount();
